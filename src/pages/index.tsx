@@ -1,9 +1,12 @@
+import { LoginUser } from "@/types/auth"
 import { NextPage } from "next/types"
 
 
-type Props = {}
+type Props = {
+  loginUser: LoginUser
+}
 
-const Index: NextPage<Props> = () => {
+const Index: NextPage<Props> = ({ loginUser }) => {
   return (
     <div>Hallo</div>
   )

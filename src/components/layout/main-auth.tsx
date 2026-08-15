@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Head from 'next/head';
 import Header from '@/components/layout/header';
 import Sidebar from '@/components/layout/sidebar-user';
 import { Api } from '@/lib/api';
 import { useQuery } from '@tanstack/react-query';
-import { AiOutlineLoading } from 'react-icons/ai'
+import { Loader2 } from 'lucide-react'
 import { LoginUser } from '@/types/auth';
 
 type Props = {
@@ -15,7 +15,7 @@ const Loading: React.FC = () => {
   return (
     <>
       <div className='h-dvh w-screen flex justify-center items-center'>
-        <AiOutlineLoading className={'absolute animate-spin '} size={'6rem'} />
+        <Loader2 className={'absolute animate-spin '} size={'6rem'} />
       </div>
     </>
   )
@@ -23,7 +23,6 @@ const Loading: React.FC = () => {
 
 const MainAuth: React.FC<Props> = ({ children }) => {
   const [sidebar, setSidebar] = useState<boolean>(false);
-  const [loginUser, setLoginUser] = useState<LoginUser>(null);
 
   const { data, isLoading } = useQuery({
     queryKey: ['init'],
@@ -42,17 +41,17 @@ const MainAuth: React.FC<Props> = ({ children }) => {
     }
   }, [dataRefreshToken])
 
-  const onClickOverlay = (isShow: boolean) => {
+  const onClickOverlay = useCallback((isShow?: boolean) => {
     if (isShow === undefined) {
-      setSidebar(!sidebar);
+      setSidebar((prev) => !prev);
     } else {
       setSidebar(isShow);
     }
-  };
+  }, []);
 
-  useEffect(() => {
-    setLoginUser(data?.payload)
-  }, [data])
+  const loginUser = data?.payload
+
+  // console.log('sidebar', sidebar)
 
 
   return (

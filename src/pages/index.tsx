@@ -1,4 +1,4 @@
-import ButtonSubmit from '@/components/formik/button-submit';
+import Button from '@/components/component/button';
 import TextField from '@/components/formik/text-field';
 import PasswordField from '@/components/formik/password-field';
 import { Form, Formik, FormikValues } from 'formik';
@@ -108,7 +108,7 @@ const SingIn: NextPage<Props> = () => {
                         />
                       </div>
                       <div className={'mt-4'}>
-                        <ButtonSubmit
+                        <Button
                           label={'Login'}
                           disabled={isPending}
                           loading={isPending}

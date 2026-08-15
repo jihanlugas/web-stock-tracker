@@ -2,7 +2,7 @@ import { ErrorMessage, useField } from 'formik';
 import { NextPage } from 'next';
 import Image from '@/components/component/image';
 import React, { useEffect, useRef, useState } from 'react';
-import { IoAddOutline } from 'react-icons/io5';
+import { Plus } from 'lucide-react';
 
 interface Props {
   label?: string;

@@ -1,37 +1,34 @@
 import React, { useEffect, useState } from 'react';
-import { BiAbacus } from 'react-icons/bi';
+import { Calculator, List, Package, Calendar } from 'lucide-react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { BsList } from 'react-icons/bs';
-import { AiOutlineProduct } from 'react-icons/ai';
-import { FaRegCalendarAlt } from 'react-icons/fa';
 
 
 interface Props {
   sidebar: boolean,
-  onClickOverlay: (boolean?) => void,
+  onClickOverlay: (isShow?: boolean) => void,
 }
 
 const icons = {
-  BiAbacus,
-  AiOutlineProduct,
-  FaRegCalendarAlt,
+  Calculator,
+  Package,
+  Calendar,
 };
 
 const defaultMenu = [
   {
     name: 'Dashboard',
-    icon: 'BiAbacus',
+    icon: 'Calculator',
     path: '/dashboard',
   },
   {
     name: 'Property',
-    icon: 'FaRegCalendarAlt',
+    icon: 'Calendar',
     path: '/property',
   },
   {
     name: 'Product',
-    icon: 'AiOutlineProduct',
+    icon: 'Package',
     path: '/product',
   },
 ];
@@ -74,11 +71,11 @@ const SidebarUser: React.FC<Props> = ({ sidebar, onClickOverlay }) => {
         <div className={`fixed ${sidebar && 'inset-0'}`} onClick={() => onClickOverlay()} aria-hidden="true">
           <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
         </div>
-        <div className={`fixed bg-gray-50 h-[100dvh] flex w-80 duration-300 ${sidebar ? 'left-0' : '-left-80'}`}>
+        <div className={`fixed bg-gray-50 h-dvh flex w-80 duration-300 ${sidebar ? 'left-0' : '-left-80'}`}>
           <div className='w-full'>
             <div className='flex items-center h-16 shadow px-2'>
               <button className='p-2 rounded-full duration-300 hover:bg-primary-100' onClick={() => onClickOverlay()}>
-                <BsList className='' size={'1.2rem'} />
+                <List className='' size={'1.2rem'} />
               </button>
               <div className='p-2 text-xl'>{process.env.APP_NAME}</div>
             </div>

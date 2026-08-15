@@ -1,7 +1,7 @@
 import { BreadcrumbLink } from "@/types/component";
 import Link from "next/link";
 import { NextPage } from "next/types";
-import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 type Props = {
   links: BreadcrumbLink[]

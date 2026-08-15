@@ -9,7 +9,7 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	type?: "submit" | "reset" | "button";
 }
 
-const ButtonSubmit: NextPage<Props> = ({ label, disabled = false, loading = false, type = 'submit', ...props }) => {
+const Button: NextPage<Props> = ({ label, disabled = false, loading = false, type = 'submit', ...props }) => {
 	return (
 		<button
 			className={'duration-300 bg-primary-500 border-primary-500 hover:bg-primary-600 hover:border-primary-600 focus:border-primary-600 h-10 rounded-md text-gray-50 font-semibold px-4 w-full shadow-lg shadow-primary-600/20'}
@@ -24,4 +24,4 @@ const ButtonSubmit: NextPage<Props> = ({ label, disabled = false, loading = fals
 	);
 };
 
-export default ButtonSubmit;
+export default Button;

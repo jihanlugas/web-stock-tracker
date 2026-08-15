@@ -1,6 +1,6 @@
 import { Api } from '@/lib/api';
 import React, { useState, useEffect, useRef } from 'react';
-import { BsList } from 'react-icons/bs';
+import { List } from 'lucide-react';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { getInitialWord } from '@/utils/helper';
@@ -62,8 +62,11 @@ const Header: React.FC<Props> = ({ sidebar, setSidebar, loginUser }) => {
     <header>
       <div className="fixed h-16 w-full flex justify-between items-center shadow bg-primary-500 z-40">
         <div className="p-2 flex text-white items-center">
-          <button className="p-2 rounded-full duration-300 hover:bg-primary-600" onClick={() => setSidebar(!sidebar)}>
-            <BsList className="" size={'1.2rem'} />
+          <button className="p-2 rounded-full duration-300 hover:bg-primary-600" onClick={() => {
+            console.log('!sidebar', !sidebar)
+            setSidebar(!sidebar)
+          }}>
+            <List className="" size={'1.2rem'} />
           </button>
           <div className="text-2xl px-2">
             <span className=''>{process.env.APP_NAME}</span>

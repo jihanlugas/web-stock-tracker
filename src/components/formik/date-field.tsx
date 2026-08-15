@@ -3,7 +3,7 @@ import { ErrorMessage, useField, useFormikContext } from 'formik';
 import React from 'react';
 import DatePicker from 'react-datepicker';
 import { DatePickerProps } from 'react-datepicker';
-import { IoClose } from 'react-icons/io5';
+import { X } from 'lucide-react';
 
 type Props = DatePickerProps & {
   name: string;
@@ -12,6 +12,7 @@ type Props = DatePickerProps & {
   handleClear?: boolean;
   className?: string;
   placeholderText?: string;
+  description?: string;
 };
 
 const DateField: NextPage<Props> = ({
@@ -25,6 +26,7 @@ const DateField: NextPage<Props> = ({
   timeFormat = 'HH:mm',
   timeIntervals = 30,
   dateFormat,
+  description,
   ...props
 }) => {
   const [field, meta] = useField(name);
@@ -33,15 +35,17 @@ const DateField: NextPage<Props> = ({
   const hasError = meta.touched && meta.error;
 
   const inputClassName = [
-		'w-full',
-		'h-10',
-		'px-2',
-		hasError && 'border-rose-400',
-		className || ''
-	].filter(Boolean).join(' ');
+    'w-full',
+    'h-10',
+    'px-2',
+    'border-2',
+    'rounded-md',
+    hasError && '!border-rose-400 outline-rose-400',
+    className || ''
+  ].filter(Boolean).join(' ');
 
   return (
-    <div className="pb-6 relative">
+    <div className="]relative">
       {label && (
         <div className="mb-1">
           <span>{label}</span>
@@ -60,7 +64,7 @@ const DateField: NextPage<Props> = ({
           className={inputClassName}
           wrapperClassName={'w-full'}
           placeholderText={placeholderText}
-				  {...props}
+          {...props}
         />
         {handleClear && field.value && (
           <button
@@ -69,18 +73,22 @@ const DateField: NextPage<Props> = ({
             className="absolute h-6 w-6 flex justify-center items-center top-2 right-2"
             title="Clear Value"
           >
-            <IoClose size="1.2rem" />
+            <X size="1.2rem" />
           </button>
         )}
       </div>
 
       <ErrorMessage name={name}>
         {(msg) => (
-          <div className="absolute bottom-0 text-rose-600 text-sm">
+          <div className="mt-1 text-sm normal-case text-rose-600">
             {msg}
           </div>
         )}
       </ErrorMessage>
+
+      {description && (
+        <div className="text-xs text-gray-600 mt-1">{description}</div>
+      )}
     </div>
   );
 };

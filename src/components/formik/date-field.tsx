@@ -3,7 +3,7 @@ import { ErrorMessage, useField, useFormikContext } from 'formik';
 import React from 'react';
 import DatePicker from 'react-datepicker';
 import { DatePickerProps } from 'react-datepicker';
-import { X } from 'lucide-react';
+import { CalendarDays, X } from 'lucide-react';
 
 type Props = DatePickerProps & {
   name: string;
@@ -13,6 +13,7 @@ type Props = DatePickerProps & {
   className?: string;
   placeholderText?: string;
   description?: string;
+  showIcon?: boolean;
 };
 
 const DateField: NextPage<Props> = ({
@@ -27,6 +28,7 @@ const DateField: NextPage<Props> = ({
   timeIntervals = 30,
   dateFormat,
   description,
+  showIcon,
   ...props
 }) => {
   const [field, meta] = useField(name);
@@ -41,6 +43,7 @@ const DateField: NextPage<Props> = ({
     'border-2',
     'rounded-md',
     hasError && '!border-rose-400 outline-rose-400',
+    showIcon && 'pl-8',
     className || ''
   ].filter(Boolean).join(' ');
 
@@ -66,10 +69,17 @@ const DateField: NextPage<Props> = ({
           placeholderText={placeholderText}
           {...props}
         />
+        {showIcon && (
+          <CalendarDays
+            size={18}
+            className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500"
+            strokeWidth={2}
+          />
+        )}
         {handleClear && field.value && (
           <button
             type="button"
-            onClick={() => setFieldValue(name, null)}
+            onClick={() => setFieldValue(name, '')}
             className="absolute h-6 w-6 flex justify-center items-center top-2 right-2"
             title="Clear Value"
           >

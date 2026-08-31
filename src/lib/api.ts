@@ -76,7 +76,12 @@ class Api {
 			[dataKey]: payload,
 			timeout: 20000,
 			responseType: 'json',
-		}).then(res => convertJsonData(res.data))
+		}).then(res => {
+			if (res.data.token) {
+				localStorage.setItem('token', res.data.token)
+			}
+			return convertJsonData(res.data)
+		})
 			.catch(error => {
 
 				// console.log("headers ", headers);

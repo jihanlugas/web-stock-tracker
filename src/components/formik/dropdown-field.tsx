@@ -59,7 +59,7 @@ const DropdownField: NextPage<Props> = ({ label, name, items, required, placehol
 					className={className}
 				>
 					{placeholder !== '' && (
-						<option value={placeholderValue}>{placeholder}</option>
+						<option value={placeholderValue} className='text-gray-600'>{placeholder}</option>
 					)}
 
 					{items.map((v, key) => {
@@ -73,7 +73,7 @@ const DropdownField: NextPage<Props> = ({ label, name, items, required, placehol
 
 				{isLoading && (
 					<Loader2
-						className="animate-spin absolute top-1/2 right-8 -translate-y-1/2 text-gray-800 pointer-events-none"
+						className="animate-spin absolute top-1/2 right-10 -translate-y-1/2 text-gray-800 pointer-events-none"
 						size={18}
 						strokeWidth={3}
 					/>

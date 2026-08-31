@@ -1,4 +1,4 @@
-import ButtonSubmit from '@/components/component/button';
+import Button from '@/components/component/button';
 import TextField from '@/components/formik/text-field';
 import PasswordField from '@/components/formik/password-field';
 import { Form, Formik, FormikValues } from 'formik';
@@ -41,7 +41,7 @@ const SingIn: NextPage<Props> = () => {
       onSuccess: (res) => {
         if (res) {
           if (res.status) {
-            localStorage.setItem('token', res.payload.token)
+            // localStorage.setItem('token', res.payload.token)
             // if (router.query.redirect) {
             //   router.push(router.query.redirect as string);
             // } else {
@@ -110,8 +110,9 @@ const SingIn: NextPage<Props> = () => {
                         />
                       </div>
                       <div className={'mt-8'}>
-                        <ButtonSubmit
+                        <Button
                           label={'Login'}
+                          type={'submit'}
                           disabled={isPending}
                           loading={isPending}
                         />

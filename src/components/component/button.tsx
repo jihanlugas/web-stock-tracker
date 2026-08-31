@@ -6,13 +6,37 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	label: string;
 	disabled?: boolean;
 	loading?: boolean;
-	type?: "submit" | "reset" | "button";
+	type: "submit" | "reset" | "button";
 }
 
-const Button: NextPage<Props> = ({ label, disabled = false, loading = false, type = 'submit', ...props }) => {
+const Button: NextPage<Props> = ({ label, disabled = false, loading = false, type, ...props }) => {
+
+
+  const className = [
+		'duration-300',
+		'bg-primary-500',
+		'border-primary-500',
+		'enabled:hover:bg-primary-600',
+		'enabled:hover:border-primary-600',
+		'focus:border-primary-600',
+		'h-10',
+		'rounded-md',
+		'text-gray-50',
+		'font-semibold',
+		'px-4',
+		'w-full',
+		'shadow-lg',
+		'shadow-primary-600/20',
+		'disabled:cursor-not-allowed',
+		'disabled:bg-primary-400',
+		props.className || '',
+  ]
+    .filter(Boolean)
+    .join(' ');
+
 	return (
 		<button
-			className={'duration-300 bg-primary-500 border-primary-500 hover:bg-primary-600 hover:border-primary-600 focus:border-primary-600 h-10 rounded-md text-gray-50 font-semibold px-4 w-full shadow-lg shadow-primary-600/20'}
+			className={className}
 			type={type}
 			disabled={disabled}
 			{...props}

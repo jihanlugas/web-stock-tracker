@@ -29,17 +29,18 @@ const MainAuth: React.FC<Props> = ({ children }) => {
     queryFn: () => Api.get('/auth/init'),
   })
 
-  const { data: dataRefreshToken } = useQuery({
+  const {} = useQuery({
     queryKey: ['refresh-token'],
     queryFn: () => Api.get('/auth/refresh-token'),
     refetchInterval: 1000 * 60 * (process.env.REFRESH_TOKEN_MINUTES as unknown as number),
+    // refetchInterval: 1000 * 60 * (1 as unknown as number),
   })
 
-  useEffect(() => {
-    if (dataRefreshToken && dataRefreshToken.status) {
-      localStorage.setItem('token', dataRefreshToken.payload.token)
-    }
-  }, [dataRefreshToken])
+  // useEffect(() => {
+  //   if (dataRefreshToken && dataRefreshToken.status) {
+  //     localStorage.setItem('token', dataRefreshToken.payload.token)
+  //   }
+  // }, [dataRefreshToken])
 
   const onClickOverlay = useCallback((isShow?: boolean) => {
     if (isShow === undefined) {
@@ -50,9 +51,6 @@ const MainAuth: React.FC<Props> = ({ children }) => {
   }, []);
 
   const loginUser = data?.payload
-
-  // console.log('sidebar', sidebar)
-
 
   return (
     <>

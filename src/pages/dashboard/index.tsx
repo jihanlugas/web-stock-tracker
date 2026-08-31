@@ -1,5 +1,7 @@
 import Breadcrumb from "@/components/component/breadcrumb";
+import Button from "@/components/component/button";
 import MainAuth from "@/components/layout/main-auth";
+import ModalCreateStockSent from "@/components/modal/modal-create-stock-sent";
 import { Api } from "@/lib/api";
 import { LoginUser } from "@/types/auth";
 import Dashboard from "@/types/dashboard";
@@ -8,12 +10,17 @@ import { useQuery } from "@tanstack/react-query";
 import { Loader } from "lucide-react";
 import { NextPage } from "next";
 import Head from "next/head";
+import { useState } from "react";
 
 type Props = {
   loginUser: LoginUser
 }
 
-const Index: NextPage<Props> = ({ loginUser }) => {
+const Index: NextPage<Props> = () => {
+
+  const [showModalCreateStockSent, setShowModalCreateStockSent] = useState<boolean>(false);
+  const [itemId, setItemId] = useState<string>('');
+
 
   const { isLoading, data, refetch } = useQuery({
     queryKey: ['dashboard'],
@@ -23,11 +30,24 @@ const Index: NextPage<Props> = ({ loginUser }) => {
   const dashboard: Dashboard = data?.payload
 
 
+  const toggleModalCreateStockSent = (itemId = '', refresh = false) => {
+    setItemId(itemId);
+    setShowModalCreateStockSent(!showModalCreateStockSent);
+    if (refresh)
+      refetch();
+  }
+
   return (
     <>
       <Head>
         <title>{process.env.APP_NAME + ' - Dashboard'}</title>
       </Head>
+      <ModalCreateStockSent
+        show={showModalCreateStockSent}
+        onClickOverlay={toggleModalCreateStockSent}
+        itemId={itemId}
+      />
+
       <div className='p-4'>
         <Breadcrumb
           links={[
@@ -40,7 +60,7 @@ const Index: NextPage<Props> = ({ loginUser }) => {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {dashboard.items.map((item, index) => (
+            {dashboard?.items?.map((item, index) => (
               <div
                 key={index}
                 className="group relative overflow-hidden rounded-xl border border-gray-100 bg-white p-5 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg"
@@ -67,23 +87,31 @@ const Index: NextPage<Props> = ({ loginUser }) => {
 
                   {/* Stats */}
                   <div className="mt-4 grid grid-cols-2 gap-3">
-                    <div className="rounded-lg bg-gray-50 p-3">
-                      <div className="text-xs font-medium text-gray-500">
-                        Stock
+                    <div className="rounded-lg bg-green-50 p-3">
+                      <div className="text-xs font-medium text-green-500">
+                        Stok
                       </div>
-                      <div className="mt-1 text-2xl font-bold text-gray-800">
+                      <div className="mt-1 text-2xl font-bold text-green-600">
                         {item.stock}
                       </div>
                     </div>
 
-                    <div className="rounded-lg bg-blue-50 p-3">
-                      <div className="text-xs font-medium text-blue-600">
-                        Sent
+                    <div className="rounded-lg bg-orange-50 p-3">
+                      <div className="text-xs font-medium text-orange-500">
+                        Dikirim
                       </div>
-                      <div className="mt-1 text-2xl font-bold text-blue-700">
+                      <div className="mt-1 text-2xl font-bold text-orange-600">
                         {item.sent}
                       </div>
                     </div>
+                  </div>
+
+                  <div className="mt-4">
+                    <Button
+                      label="Tambah Stok / Pengiriman"
+                      type="button"
+                      onClick={() => toggleModalCreateStockSent(item.id)}
+                    />
                   </div>
                 </div>
               </div>

@@ -22,14 +22,14 @@ const defaultMenu = [
     path: '/dashboard',
   },
   {
-    name: 'Property',
-    icon: 'Calendar',
-    path: '/property',
+    name: 'Item',
+    icon: 'Package',
+    path: '/item',
   },
   {
-    name: 'Product',
-    icon: 'Package',
-    path: '/product',
+    name: 'Log',
+    icon: 'Calendar',
+    path: '/log',
   },
 ];
 

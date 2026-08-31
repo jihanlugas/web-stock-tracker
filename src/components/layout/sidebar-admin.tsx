@@ -21,19 +21,19 @@ const icons = {
 
 const defaultMenu = [
   {
-    name: 'Overview',
+    name: 'Dashboard',
     icon: 'Calculator',
-    path: '/admin/overview',
-  },
-  {
-    name: 'Company',
-    icon: 'Calculator',
-    path: '/admin/company',
+    path: '/dashboard',
   },
   {
     name: 'Item',
-    icon: 'Calculator',
-    path: '/admin/item',
+    icon: 'Package',
+    path: '/item',
+  },
+  {
+    name: 'Log',
+    icon: 'Calendar',
+    path: '/log',
   },
 ];
 

@@ -25,7 +25,7 @@ const Header: React.FC<Props> = ({ sidebar, setSidebar, loginUser }) => {
 
   const { mutate } = useMutation({
     mutationKey: ['sign-out'],
-    mutationFn: () => Api.get('/auth/sign-out')
+    mutationFn: () => Api.post('/auth/sign-out')
   });
 
   const handleLogout = () => {
@@ -63,7 +63,6 @@ const Header: React.FC<Props> = ({ sidebar, setSidebar, loginUser }) => {
       <div className="fixed h-16 w-full flex justify-between items-center shadow bg-primary-500 z-40">
         <div className="p-2 flex text-white items-center">
           <button className="p-2 rounded-full duration-300 hover:bg-primary-600" onClick={() => {
-            console.log('!sidebar', !sidebar)
             setSidebar(!sidebar)
           }}>
             <List className="" size={'1.2rem'} />
@@ -86,7 +85,7 @@ const Header: React.FC<Props> = ({ sidebar, setSidebar, loginUser }) => {
                 </button>
               )}
             </div>
-            <div className={`absolute right-4 mt-2 w-56 rounded-md overflow-hidden origin-top-right shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none duration-300 ease-in-out ${!profileBar && 'scale-0 shadow-none ring-0'}`}>
+            <div className={`absolute right-4 mt-2 w-56 rounded-md overflow-hidden origin-top-right shadow-lg bg-white border border-gray-200 focus:outline-none duration-300 ease-in-out ${!profileBar && 'scale-0 shadow-none ring-0'}`}>
               <div className="" role="none">
                 <Link href={'/account/change-password'}>
                   <div className={'block px-4 py-3 text-gray-600 text-sm capitalize duration-300 hover:bg-primary-100 hover:text-gray-700'}>{'Ganti Password'}</div>
@@ -94,7 +93,7 @@ const Header: React.FC<Props> = ({ sidebar, setSidebar, loginUser }) => {
                 <Link href={'/setting'}>
                   <div className={'block px-4 py-3 text-gray-600 text-sm capitalize duration-300 hover:bg-primary-100 hover:text-gray-700'}>{'Setting'}</div>
                 </Link>
-                <hr />
+                <hr className="border 2 border-gray-200" />
                 <button onClick={handleLogout} className={'block px-4 py-3 text-gray-600 text-sm capitalize duration-300 hover:bg-primary-100 hover:text-gray-700 w-full text-left'}>
                   {'Sign Out'}
                 </button>

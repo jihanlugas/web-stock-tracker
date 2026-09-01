@@ -11,64 +11,156 @@ interface Props {
   photoUrl?: string;
 }
 
-const ImageField: NextPage<Props & React.HTMLProps<HTMLInputElement>> = ({ label, name, required, photoUrl = '', ...props }) => {
-  const [previewImage, setPreviewImage] = useState<string>(photoUrl);
-  const [field, meta, helpers] = useField({ name, ...props });
-  // const helpers = useField({ name, ...props })[2];
-  const handleChange = (event) => {
-    if (event.currentTarget.files[0] !== undefined) {
-      helpers.setTouched(true);
-      helpers.setValue(event.currentTarget.files[0], true);
-      setPreviewImage(URL.createObjectURL(event.target.files[0]));
-    }
-  };
+const ImageField: NextPage<Props & React.HTMLProps<HTMLInputElement>> = ({
+  label,
+  name,
+  required,
+  photoUrl = '',
+  ...props
+}) => {
+  const [, meta, helpers] = useField(name);
 
-  const handleClickImage = (e) => {
-    e.preventDefault();
-    inputField.current.click();
-  };
+  // Hanya menyimpan preview dari file baru yang dipilih
+  const [previewImage, setPreviewImage] = useState<string>('');
 
   const inputField = useRef<HTMLInputElement>(null);
+  const objectUrlRef = useRef<string | null>(null);
 
-  useEffect(() => {
-    if (field.value === null) {
-      setPreviewImage('');
+  /**
+   * Gambar yang ditampilkan:
+   *
+   * 1. previewImage -> file baru yang dipilih user
+   * 2. photoUrl     -> gambar dari server
+   */
+  const imageSrc = previewImage || photoUrl;
+
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event.currentTarget.files?.[0];
+
+    if (!file) {
+      return;
     }
-  }, [field.value]);
+
+    // Hapus object URL sebelumnya
+    if (objectUrlRef.current) {
+      URL.revokeObjectURL(objectUrlRef.current);
+    }
+
+    // Buat URL untuk preview file
+    const objectUrl = URL.createObjectURL(file);
+
+    objectUrlRef.current = objectUrl;
+
+    // Simpan preview
+    setPreviewImage(objectUrl);
+
+    // Simpan File ke Formik
+    helpers.setTouched(true);
+    helpers.setValue(file, true);
+  };
+
+  const handleClickImage = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault();
+
+    inputField.current?.click();
+  };
+
+  /**
+   * Clear image
+   */
+  const handleClear = () => {
+    if (objectUrlRef.current) {
+      URL.revokeObjectURL(objectUrlRef.current);
+      objectUrlRef.current = null;
+    }
+
+    setPreviewImage('');
+
+    helpers.setValue(null);
+    helpers.setTouched(true);
+
+    // Reset input supaya file yang sama bisa dipilih kembali
+    if (inputField.current) {
+      inputField.current.value = '';
+    }
+  };
+
+  /**
+   * Cleanup ketika component unmount
+   */
+  useEffect(() => {
+    return () => {
+      if (objectUrlRef.current) {
+        URL.revokeObjectURL(objectUrlRef.current);
+      }
+    };
+  }, []);
 
   return (
-    <div className={'flex flex-col w-full relative pb-6'}>
+    <div className="relative flex w-full flex-col pb-6">
+      {/* Label */}
       {label && (
-        <div className={''}>
+        <div className="mb-2">
           <span>{label}</span>
-          {required && <span className={'text-red-600'}>{'*'}</span>}
+
+          {required && (
+            <span className="text-red-600">*</span>
+          )}
         </div>
       )}
+
+      {/* File input */}
       <input
-        className={'hidden'}
-        type={'file'}
-        name={name}
-        onChange={handleChange}
-        ref={inputField}
         {...props}
+        ref={inputField}
+        type="file"
+        name={name}
+        className="hidden"
+        onChange={handleChange}
       />
-      <button className='w-36' onClick={handleClickImage}>
-        {previewImage !== '' ? (
-          <div className='relative w-36 border-2 rounded border-gray-200 bg-gray-50'>
-            <Image src={previewImage} alt={'Preview Image'} />
+
+      {/* Image */}
+      <button
+        type="button"
+        className="w-36"
+        onClick={handleClickImage}
+      >
+        {imageSrc ? (
+          <div className="relative w-36 overflow-hidden rounded border-2 border-gray-200 bg-gray-50">
+            <Image
+              src={imageSrc}
+              alt="Preview Image"
+            />
           </div>
         ) : (
-          <div className='relative w-36 h-36 border-2 rounded border-gray-200 bg-gray-50 flex justify-center items-center'>
-            <IoAddOutline className='' size={'2.5rem'} />
+          <div className="relative flex h-36 w-36 items-center justify-center rounded border-2 border-gray-200 bg-gray-50">
+            <Plus size="2.5rem" />
           </div>
         )}
       </button>
+
+      {/* Clear button */}
+      {imageSrc && (
+        <button
+          type="button"
+          onClick={handleClear}
+          className="mt-2 w-36 rounded bg-red-500 px-3 py-2 text-sm text-white hover:bg-red-600"
+        >
+          Remove
+        </button>
+      )}
+
+      {/* Error */}
       <ErrorMessage name={name}>
-        {(msg) => {
-          return (
-            <div className={'absolute bottom-0 text-red-600 text-sm normal-case'}>{msg}</div>
-          );
-        }}
+        {(msg) => (
+          <div className="absolute bottom-0 text-sm normal-case text-red-600">
+            {msg}
+          </div>
+        )}
       </ErrorMessage>
     </div>
   );

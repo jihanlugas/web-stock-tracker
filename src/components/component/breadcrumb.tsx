@@ -31,7 +31,7 @@ const Breadcrumb: NextPage<Props> = ({ links }) => {
                     <div className='mr-4 text duration-300 text-primary-500 hover:text-primary-400'>{link.name}</div>
                   </Link>
                   <div className='mr-4'>
-                    <BsChevronRight className={''} size={'1.2rem'} />
+                    <ChevronRight className={''} size={'1.2rem'} />
                   </div>
                 </div>
               )
@@ -42,7 +42,7 @@ const Breadcrumb: NextPage<Props> = ({ links }) => {
           {links.length > 1 && (
             <Link href={links[links.length - 2].path}>
               <div className='mr-4 text duration-300 text-primary-500 hover:text-primary-400'>
-                <BsChevronLeft className={''} size={'1.2rem'} />
+                <ChevronLeft className={''} size={'1.2rem'} />
               </div>
             </Link>
           )}

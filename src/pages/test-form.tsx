@@ -134,6 +134,7 @@ export default function SortableVertical() {
                   <div className="my-4">
                     <Button
                       label={'Save'}
+                      type={'submit'}
                     />
                   </div>
                   {process.env.DEBUG === 'true' && (

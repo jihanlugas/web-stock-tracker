@@ -89,7 +89,7 @@ const Index: NextPage<Props> = ({ loginUser }) => {
   return (
     <>
       <Head>
-        <title>{process.env.APP_NAME + ' - Log'}</title>
+        <title>{process.env.APP_NAME + ' - Item Log'}</title>
       </Head>
       <ModalFilter
         show={showModalFilter}
@@ -100,7 +100,7 @@ const Index: NextPage<Props> = ({ loginUser }) => {
       <div className='p-4'>
         <Breadcrumb
           links={[
-            { name: 'Log', path: '' },
+            { name: 'Item Log', path: '' },
           ]}
         />
         <div className='bg-white mb-20 p-4 rounded shadow'>
@@ -259,13 +259,12 @@ const PaginationMobile: NextPage<PaginationMobileProps> = ({ data, setPageReques
             </div>
 
             {/* Notes */}
-            {item.notes && (
-              <div className="mt-3 border-t border-gray-100 pt-3">
-                <p className="line-clamp-2 text-xs leading-relaxed text-gray-500">
-                  {item.notes}
-                </p>
-              </div>
-            )}
+            <div className="mt-3 border-t border-gray-100 pt-3">
+              <p className="text-xs font-medium text-gray-600">Keterangan</p>
+              <p className="line-clamp-2 text-xs leading-relaxed text-gray-500">
+                {item.notes || '-'}
+              </p>
+            </div>
           </div>
         );
       }}

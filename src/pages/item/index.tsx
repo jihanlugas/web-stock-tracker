@@ -296,7 +296,6 @@ const PaginationMobile: NextPage<PaginationMobileProps> = ({ data, setPageReques
       pageInfo={pageInfo}
       isLoading={isLoading}
       renderItem={(item: ItemView) => {
-        const isEmpty = item.stock <= 0;
         return (
           <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
             {/* Header */}

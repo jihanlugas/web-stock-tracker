@@ -27,9 +27,9 @@ const defaultMenu = [
     path: '/item',
   },
   {
-    name: 'Log',
+    name: 'Item Log',
     icon: 'Calendar',
-    path: '/log',
+    path: '/itemlog',
   },
 ];
 

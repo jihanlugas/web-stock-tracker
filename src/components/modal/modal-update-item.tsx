@@ -54,8 +54,6 @@ const ModalUpdateItem: NextPage<Props> = ({ show, onClickOverlay, id }) => {
     })
   }
 
-  console.log('dataItem', dataItem)
-
   if (!show)
     return null
 

@@ -4,7 +4,7 @@ import Header from '@/components/layout/header';
 import Sidebar from '@/components/layout/sidebar-user';
 import { Api } from '@/lib/api';
 import { useQuery } from '@tanstack/react-query';
-import { Loader2 } from 'lucide-react'
+import { Loader } from 'lucide-react'
 import { LoginUser } from '@/types/auth';
 
 type Props = {
@@ -15,7 +15,7 @@ const Loading: React.FC = () => {
   return (
     <>
       <div className='h-dvh w-screen flex justify-center items-center'>
-        <Loader2 className={'absolute animate-spin '} size={'6rem'} />
+        <Loader className={'absolute animate-spin'} size={'6rem'} />
       </div>
     </>
   )

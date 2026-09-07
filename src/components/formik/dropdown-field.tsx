@@ -1,7 +1,7 @@
 import { Field, FastField, ErrorMessage, useField } from 'formik';
 import { NextPage } from 'next';
 import React from 'react';
-import { Loader2, ChevronDown } from 'lucide-react';
+import { Loader, ChevronDown } from 'lucide-react';
 
 // interface item {
 // 	label: string;
@@ -72,7 +72,7 @@ const DropdownField: NextPage<Props> = ({ label, name, items, required, placehol
 				</FieldComponent>
 
 				{isLoading && (
-					<Loader2
+					<Loader
 						className="animate-spin absolute top-1/2 right-10 -translate-y-1/2 text-gray-800 pointer-events-none"
 						size={18}
 						strokeWidth={3}

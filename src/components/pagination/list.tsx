@@ -160,34 +160,14 @@ const List: NextPage<ListProps> = ({
             const active = item === page;
 
             return (
-              <>
-                {/* <button
-                  key={item}
-                  type="button"
-                  onClick={() => handlePageChange(item)}
-                  className={`
-                  flex h-9 min-w-9 shrink-0
-                  items-center justify-center
-                  rounded-lg border
-                  px-2 text-sm
-                  transition
-                  ${active
-                      ? 'border-blue-600 bg-blue-600 text-white'
-                      : 'border-gray-200 bg-white text-gray-600 hover:bg-gray-100'
-                    }
-                `}
-                >
-                  {item}
-                </button> */}
-                <ButtonIcon
-                  key={item}
-                  type="button"
-                  icon={<div className=''>{item}</div>}
-                  onClick={() => handlePageChange(item)}
-                  className={active && 'disabled:text-primary-600 disabled:cursor-default!'}
-                  disabled={active}
-                />
-              </>
+              <ButtonIcon
+                key={index}
+                type="button"
+                icon={<div className=''>{item}</div>}
+                onClick={() => handlePageChange(item)}
+                className={active && 'disabled:text-primary-600 disabled:cursor-default!'}
+                disabled={active}
+              />
             );
           })}
 

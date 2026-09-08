@@ -162,7 +162,7 @@ const PaginationMobile: NextPage<PaginationMobileProps> = ({ data, setPageReques
       renderItem={(item: ItemlogView) => {
         const isStock = item.type === 'STOCK';
 
-        const typeLabel = isStock ? 'Stock' : 'Sent';
+        const typeLabel = isStock ? 'Stok' : 'Dikirim';
 
         return (
           <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">

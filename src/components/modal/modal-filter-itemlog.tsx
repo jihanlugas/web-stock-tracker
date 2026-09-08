@@ -74,7 +74,7 @@ const ModalFilterItemlog: NextPage<Props> = ({ show, onClickOverlay, filter, set
     <Modal show={show} onClickOverlay={() => onClickOverlay()} layout={'sm:max-w-4xl'}>
       <div className="p-4">
         <div className={'text-xl mb-4 flex justify-between items-center'}>
-          <div>Tambah Stok / Pengiriman</div>
+          <div>Filter Item Log</div>
           <ButtonIcon
             type="button"
             onClick={() => onClickOverlay()}

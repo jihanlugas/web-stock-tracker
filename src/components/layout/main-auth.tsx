@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import Head from 'next/head';
 import Header from '@/components/layout/header';
-import Sidebar from '@/components/layout/sidebar-user';
+import SidebarUser from '@/components/layout/sidebar-user';
+import SidebarAdmin from '@/components/layout/sidebar-admin';
 import { Api } from '@/lib/api';
 import { useQuery } from '@tanstack/react-query';
 import { Loader } from 'lucide-react'
@@ -50,7 +51,7 @@ const MainAuth: React.FC<Props> = ({ children }) => {
     }
   }, []);
 
-  const loginUser = data?.payload
+  const loginUser: LoginUser = data?.payload
 
   return (
     <>
@@ -58,10 +59,14 @@ const MainAuth: React.FC<Props> = ({ children }) => {
         <meta name="theme-color" content={'currentColor'} />
       </Head>
       <main className={''}>
-        {!isLoading && loginUser ? (
+        {!isLoading && loginUser?.user ? (
           <>
             <Header sidebar={sidebar} setSidebar={setSidebar} loginUser={loginUser} />
-            <Sidebar sidebar={sidebar} onClickOverlay={onClickOverlay} />
+            {loginUser.user.role === 'ADMIN' ? (
+              <SidebarAdmin sidebar={sidebar} onClickOverlay={onClickOverlay} />
+            ) : (
+              <SidebarUser sidebar={sidebar} onClickOverlay={onClickOverlay} />
+            )}
             <div className={`block duration-300 ease-in-out pt-16 min-h-svh overflow-y-auto`}>
               {React.isValidElement(children) ? React.cloneElement(children, { loginUser }) : children}
             </div>

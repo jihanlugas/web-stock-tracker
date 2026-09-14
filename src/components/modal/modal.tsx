@@ -11,7 +11,6 @@ interface Props {
 const Modal: NextPage<Props> = ({ children, show, onClickOverlay, layout = '' }) => {
 
   const handleClickBackdrop = () => {
-    console.log('handleClickBackdrop', )
     onClickOverlay()
   }
 

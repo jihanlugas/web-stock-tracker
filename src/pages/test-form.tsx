@@ -40,9 +40,6 @@ const handleSubmit = async (values, formikHelpers) => {
 
   const startDt = values.startDt
   const endDt = new Date(values.endDt).toISOString()
-
-  console.log('startDt', startDt)
-  console.log('endDt', endDt)
 }
 
 export default function SortableVertical() {

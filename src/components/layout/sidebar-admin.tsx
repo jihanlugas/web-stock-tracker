@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Calculator, User, Layers, List, Edit, Users, ThumbsUp, Inbox, Eye } from 'lucide-react';
+import { Calculator, List, Package, Calendar, Users } from 'lucide-react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
@@ -10,13 +10,9 @@ interface Props {
 
 const icons = {
   Calculator,
-  User,
-  Edit,
-  Layers,
-  ThumbsUp,
-  Inbox,
+  Package,
+  Calendar,
   Users,
-  Eye,
 };
 
 const defaultMenu = [
@@ -34,6 +30,11 @@ const defaultMenu = [
     name: 'Item Log',
     icon: 'Calendar',
     path: '/itemlog',
+  },
+  {
+    name: 'User',
+    icon: 'Users',
+    path: '/user',
   },
 ];
 

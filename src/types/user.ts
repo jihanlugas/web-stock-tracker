@@ -58,3 +58,9 @@ export declare interface UpdateUser {
     birthDt?: string | DateConstructor
     birthPlace: string
 }
+
+export declare interface ChangePassword {
+  currentPasswd: string;
+  passwd: string;
+  confirmPasswd: string;
+}
